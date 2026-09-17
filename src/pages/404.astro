@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Masthead from '../components/Masthead.astro';
+import Footer from '../components/Footer.astro';
+import { cv } from '../data/cv';
+---
+
+<Base title={`Not found — ${cv.name}`} description="That page doesn't exist.">
+  <div class="page">
+    <Masthead />
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="sidebar__inner">
+          <p class="bio">
+            That page doesn't exist — it may have moved when this site was rebuilt.
+          </p>
+          <div class="contacts">
+            <a class="contact" href="/">
+              <span class="contact__label">Go to the CV</span>
+              <span class="arrow">↗</span>
+            </a>
+            <a class="contact" href="/blog">
+              <span class="contact__label">Read the blog</span>
+              <span class="arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <div class="content">
+        <section class="section">
+          <h1 class="section__label">404</h1>
+          <p class="post__title">Nothing here.</p>
+        </section>
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</Base>

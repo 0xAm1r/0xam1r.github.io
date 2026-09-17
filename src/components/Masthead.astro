@@ -1,0 +1,63 @@
+---
+import { cv } from '../data/cv';
+
+const NAV = [
+  { key: 'cv', label: 'CV', href: '/' },
+  { key: 'blog', label: 'Blog', href: '/blog' },
+  { key: 'about', label: 'About', href: '/about' },
+] as const;
+
+export type Section = (typeof NAV)[number]['key'];
+
+interface Props {
+  /** Omit on pages outside the nav (e.g. 404); no item is then marked current. */
+  current?: Section;
+}
+
+const { current } = Astro.props;
+
+/* The CV page's main heading is the name. Elsewhere the page supplies its own
+   <h1> (post title, section label), so the name steps down to a <p>. */
+const NameTag = current === 'cv' ? 'h1' : 'p';
+---
+
+<header class="masthead">
+  <div>
+    <NameTag class="masthead__name">
+      {current === 'cv' ? <>{cv.name},</> : <a href="/">{cv.name},</a>}
+    </NameTag>
+    <p class="masthead__role">{cv.role}</p>
+  </div>
+
+  <nav class="masthead__nav">
+    {
+      NAV.map((item) =>
+        item.key === current ? (
+          <span class="masthead__nav-current" aria-current="page">{item.label}</span>
+        ) : (
+          <a href={item.href}>{item.label}</a>
+        ),
+      )
+    }
+
+    <!-- Which icon shows is decided in CSS by [data-theme], so it is already
+         correct on first paint — no JS needed to pick it. -->
+    <button class="theme-toggle" type="button" aria-label="Toggle light and dark mode">
+      <svg
+        class="theme-toggle__icon theme-toggle__icon--sun"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.6" stroke-linecap="round" aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="4.2" />
+        <path d="M12 2.4v2.6M12 19v2.6M4.2 4.2l1.9 1.9M17.9 17.9l1.9 1.9M2.4 12h2.6M19 12h2.6M4.2 19.8l1.9-1.9M17.9 6.1l1.9-1.9" />
+      </svg>
+      <svg
+        class="theme-toggle__icon theme-toggle__icon--moon"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+      >
+        <path d="M20.5 14.3A8.5 8.5 0 1 1 9.7 3.5a6.8 6.8 0 0 0 10.8 10.8Z" />
+      </svg>
+    </button>
+  </nav>
+</header>

@@ -1,0 +1,529 @@
+/* ============================================================
+   Design tokens — lifted from the "Clean Personal Resume" template
+   ============================================================ */
+:root {
+  --bg:    #000000;
+  --fg:    #ffffff;
+  --muted: #ababab;
+  --rule:  #383838;
+  color-scheme: dark;
+
+  --font-ui:   'Schibsted Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --maxw:       1440px;
+  --gutter:     30px;
+  --sidebar:    368px;
+  --col-gap:    20px;
+  --inner-gap:  37px;
+  --section-pt: 30px;
+  --section-pb: 80px;
+  --masthead-gap: 144px;
+}
+
+/* Light theme. Dark is the base because that is the template's design; this
+   is opt-in via the toggle, which sets data-theme on <html>.
+   --muted is darkened from #ababab to #6e6e6e so it still clears AA on white
+   (5.1:1); #ababab on white would be 2.3:1 and fail. */
+:root[data-theme='light'] {
+  --bg:    #ffffff;
+  --fg:    #000000;
+  --muted: #6e6e6e;
+  --rule:  #dedede;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.0016em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+p  { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-size: inherit; font-weight: 600; }
+
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+/* ---------- Shell ---------- */
+.page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- Masthead ---------- */
+.masthead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 36px;
+}
+.masthead__name,
+.masthead__role,
+.masthead__nav {
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: -0.0048em;
+}
+.masthead__name { font-weight: 600; }
+.masthead__role { font-weight: 400; color: var(--muted); }
+.masthead__nav  {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.masthead__nav a:hover { color: var(--muted); }
+.masthead__name a:hover { color: var(--muted); }
+
+/* ---------- Two-column layout ---------- */
+.layout {
+  display: flex;
+  gap: var(--col-gap);
+  align-items: flex-start;
+  margin-top: var(--masthead-gap);
+}
+.sidebar {
+  flex: 0 0 var(--sidebar);
+  max-width: var(--sidebar);
+  position: sticky;
+  top: var(--gutter);
+  padding-right: 10px;
+}
+/* The rule above the bio stops 10px short of the column edge, and the
+   text is inset 6px from the left — both taken from the template. */
+.sidebar__inner {
+  border-top: 1px solid var(--rule);
+  padding: 0 40px 40px 6px;
+}
+.content {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-left: 20px;
+}
+
+/* ---------- Sidebar ---------- */
+.portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: var(--section-pt);
+}
+.portrait + .bio { padding-top: 24px; }
+
+.bio {
+  padding: var(--section-pt) 0 0;
+  max-width: 312px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.contacts { margin-top: var(--inner-gap); }
+.contact {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 13px 0;
+  border-top: 1px solid var(--rule);
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  transition: color 120ms ease;
+}
+.contact:last-child { border-bottom: 1px solid var(--rule); }
+.contact:hover { color: var(--muted); }
+.contact__label { font-weight: 600; }
+.arrow { font-size: 0.82em; line-height: 1; }
+
+/* ---------- Sections ---------- */
+.section {
+  border-top: 1px solid var(--rule);
+  padding-top: var(--section-pt);
+  padding-bottom: var(--section-pb);
+}
+.section:first-child { border-top: 1px solid var(--rule); }
+.section__label {
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--muted);
+  margin-bottom: 30px;
+}
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--inner-gap);
+}
+
+/* ---------- Experience ---------- */
+.exp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--inner-gap);
+}
+.exp + .exp { margin-top: 44px; }
+.exp__title   { font-size: 16px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
+.exp__company { font-size: 16px; color: var(--muted); line-height: 1.4; }
+.exp__company:hover { color: var(--fg); }
+.exp__meta    { font-size: 16px; color: var(--muted); line-height: 1.4; }
+
+/* ---------- Bullet copy ---------- */
+.bullets {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.0008em;
+}
+.bullets li { position: relative; padding-left: 18px; }
+.bullets li + li { margin-top: 14px; }
+.bullets li::before { content: "•"; position: absolute; left: 2px; }
+
+/* ---------- Skills ---------- */
+.skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px var(--inner-gap);
+}
+.skillgroup__label {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
+}
+.skillgroup li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 15px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.skillgroup li + li { margin-top: 11px; }
+.skillgroup li::before { content: "•"; position: absolute; left: 2px; }
+
+/* ---------- Education ---------- */
+.edu { display: grid; grid-template-columns: 1fr 1fr; gap: var(--inner-gap); }
+.edu + .edu { margin-top: 30px; }
+.edu__minor { color: var(--muted); }
+
+/* ---------- Quotes / certifications ---------- */
+.quote__attr { line-height: 1.4; }
+.quote__text { line-height: 1.4; }
+.quote__attr { color: var(--muted); margin-top: 12px; }
+.certs li + li { margin-top: 12px; }
+
+/* ---------- Footer ---------- */
+/* No rule above the footer, and it aligns to the content column rather than
+   the page — both taken from the template (footer x=438, w=972, h=400 with
+   the link resting on the bottom edge). */
+.footer {
+  margin-left: calc(var(--sidebar) + var(--col-gap) + 20px);
+  padding: 20px 0;
+  min-height: 400px;
+  display: flex;
+  align-items: flex-end;
+}
+.footer__cta {
+  display: block;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.0048em;
+  transition: color 120ms ease;
+}
+.footer__cta:hover { color: var(--muted); }
+
+
+/* ---------- About page ---------- */
+.block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--inner-gap);
+}
+.block + .block { margin-top: 44px; }
+.block__title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.prose {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.0008em;
+}
+.prose p + p { margin-top: 16px; }
+
+.linklist li + li { margin-top: 12px; }
+.linklist a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  color: var(--muted);
+  transition: color 120ms ease;
+}
+.linklist a:hover { color: var(--fg); }
+
+
+/* ---------- Theme toggle ---------- */
+.theme-toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  transition: color 120ms ease;
+}
+.theme-toggle:hover { color: var(--muted); }
+.theme-toggle__icon { width: 19px; height: 19px; display: block; }
+
+/* Dark (base): offer the sun. Light: offer the moon. */
+.theme-toggle__icon--moon { display: none; }
+:root[data-theme='light'] .theme-toggle__icon--sun  { display: none; }
+:root[data-theme='light'] .theme-toggle__icon--moon { display: block; }
+
+
+/* ---------- Blog: nav current state ---------- */
+.masthead__nav-current { color: var(--muted); }
+
+/* ---------- Blog: left rail identity ---------- */
+.blog-name {
+  padding-top: var(--section-pt);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.blog-tagline {
+  margin-top: 8px;
+  max-width: 312px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* ---------- Blog: post list ----------
+   Same two-column grammar as an experience entry: meta left, content right. */
+.post-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--inner-gap);
+}
+.post-item + .post-item { margin-top: 44px; }
+.post-item__date {
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.post-item__title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.post-item__title a { transition: color 120ms ease; }
+.post-item__title a:hover { color: var(--muted); }
+.post-item__excerpt {
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.0008em;
+  color: var(--muted);
+}
+
+/* ---------- Blog: single post ---------- */
+.post-meta {
+  padding-top: var(--section-pt);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.post-meta + .post-meta { padding-top: 4px; }
+.post-meta--dim { text-transform: lowercase; }
+
+.post {
+  border-top: 1px solid var(--rule);
+  padding-top: var(--section-pt);
+  padding-bottom: var(--section-pb);
+}
+.post__title {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+}
+
+/* Long-form measure: ~68 characters, wider leading than the CV's bullet copy. */
+.post-body {
+  margin-top: 28px;
+  max-width: 68ch;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  letter-spacing: -0.0008em;
+}
+.post-body > * + * { margin-top: 1.15em; }
+.post-body h2,
+.post-body h3 {
+  font-family: var(--font-ui);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+.post-body h2 { font-size: 20px; margin-top: 2em; }
+.post-body h3 { font-size: 17px; margin-top: 1.8em; }
+.post-body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--muted);
+}
+.post-body a:hover { text-decoration-color: currentColor; }
+.post-body em { font-style: italic; }
+.post-body strong { font-weight: 600; }
+.post-body blockquote {
+  padding-left: 20px;
+  border-left: 1px solid var(--rule);
+  color: var(--muted);
+}
+.post-body hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2.4em 0;
+}
+.post-body li { position: relative; padding-left: 18px; }
+.post-body li + li { margin-top: 8px; }
+.post-body ul li::before { content: "\2022"; position: absolute; left: 2px; }
+.post-body ol { counter-reset: item; }
+.post-body ol li { counter-increment: item; }
+.post-body ol li::before {
+  content: counter(item) ".";
+  position: absolute;
+  left: 0;
+  color: var(--muted);
+}
+.post-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  background: color-mix(in srgb, var(--fg) 9%, transparent);
+  padding: 0.15em 0.35em;
+  border-radius: 3px;
+}
+.post-body pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 16px 18px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+.post-body pre code { background: none; padding: 0; font-size: inherit; }
+.post-body img { display: block; max-width: 100%; height: auto; }
+
+
+/* ---------- Certifications & languages ---------- */
+.cert + .cert { margin-top: 24px; }
+.cert__detail {
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.0008em;
+  color: var(--muted);
+}
+.cert__link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-top: 10px;
+  font-size: 16px;
+  color: var(--muted);
+  transition: color 120ms ease;
+}
+.cert__link:hover { color: var(--fg); }
+
+.langs li {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 11px 0;
+  border-top: 1px solid var(--rule);
+  font-size: 16px;
+  line-height: 1.4;
+}
+.langs li:last-child { border-bottom: 1px solid var(--rule); }
+.langs__level { color: var(--muted); }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 900px) {
+  :root { --gutter: 20px; --masthead-gap: 56px; --section-pb: 48px; }
+
+  .masthead__name, .masthead__role, .masthead__nav { font-size: 20px; }
+
+  .layout { display: block; }
+  .sidebar {
+    position: static;
+    max-width: none;
+    width: auto;
+    padding-right: 0;
+  }
+  .sidebar__inner { padding: 0 0 40px; }
+  .content { padding-left: 0; }
+  .footer { margin-left: 0; min-height: 220px; }
+
+  .cols, .exp, .skills, .edu, .block, .post-item { grid-template-columns: 1fr; gap: 8px; }
+  .skills { gap: 32px; }
+  .exp + .exp, .block + .block { margin-top: 36px; }
+  .post-item + .post-item { margin-top: 30px; }
+  .masthead__nav { gap: 14px; }
+  .post__title { font-size: 26px; max-width: none; }
+  .post-body { font-size: 16px; margin-top: 22px; }
+  .footer__cta { font-size: 20px; }
+}
+
+/* ============================================================
+   Print — a CV site should print like a CV
+   ============================================================ */
+@media print {
+  :root,
+  :root[data-theme='light'],
+  :root[data-theme='dark'] { --bg: #fff; --fg: #000; --muted: #555; --rule: #ccc; --masthead-gap: 32px; --section-pb: 24px; color-scheme: light; }
+  body { font-size: 11pt; }
+  .masthead__nav, .footer { display: none; }
+  .sidebar { position: static; }
+  .section { break-inside: avoid; }
+  .exp, .block, .post-item { break-inside: avoid; }
+  .post-body { max-width: none; font-size: 11pt; }
+}
+
+figure, blockquote { margin: 0; }

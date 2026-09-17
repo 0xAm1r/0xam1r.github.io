@@ -1,0 +1,61 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Masthead from '../../components/Masthead.astro';
+import Footer from '../../components/Footer.astro';
+import { blog } from '../../data/blog';
+import { getPosts, postPath, formatDate, excerpt } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    params: { slug: postPath(post.id).slice('/blog/'.length) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const description = post.data.description ?? excerpt(post.body ?? '', 155);
+---
+
+<Base title={`${post.data.title} — ${blog.name}`} description={description}>
+  <div class="page">
+    <Masthead current="blog" />
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="sidebar__inner">
+          <p class="post-meta">
+            <time datetime={post.data.date.toISOString().slice(0, 10)}>
+              {formatDate(post.data.date)}
+            </time>
+          </p>
+          {post.data.categories && <p class="post-meta post-meta--dim">{post.data.categories}</p>}
+
+          <div class="contacts">
+            <a class="contact" href="/blog">
+              <span class="arrow">↖</span>
+              <span class="contact__label">All posts</span>
+            </a>
+            <a class="contact" href={blog.rssHref}>
+              <span class="contact__label">Subscribe via RSS</span>
+              <span class="arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <div class="content">
+        <article class="post">
+          <h1 class="post__title">{post.data.title}</h1>
+          <div class="post-body">
+            <Content />
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</Base>

@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import Masthead from '../components/Masthead.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Section from '../components/Section.astro';
+import Footer from '../components/Footer.astro';
+import { cv } from '../data/cv';
+import { about } from '../data/about';
+---
+
+<Base title={`About — ${cv.name}`} description={about.blurb}>
+  <div class="page">
+    <Masthead navLabel="CV" navHref="/" linkHome />
+
+    <main class="layout">
+      <Sidebar blurb={about.blurb} photo={about.photo} photoAlt={about.photoAlt} />
+
+      <div class="content">
+        <Section label="About" as="h1">
+          {
+            about.blocks.map((block) => (
+              <div class="block">
+                <h3 class="block__title">{block.title}</h3>
+                <div class="prose">
+                  {block.paragraphs.map((paragraph) => (
+                    <p>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </Section>
+
+        <Section label="Elsewhere">
+          <div class="block">
+            <h3 class="block__title">Find me at</h3>
+            <ul class="linklist">
+              {
+                about.elsewhere.map((link) => (
+                  <li>
+                    <a href={link.href} target="_blank" rel="noopener noreferrer">
+                      {link.label} <span class="arrow">↗</span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </Section>
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</Base>

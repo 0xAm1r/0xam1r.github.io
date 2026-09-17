@@ -1,0 +1,9 @@
+---
+import { cv } from '../data/cv';
+---
+
+<footer class="footer">
+  <!-- display:block + full column width, so the whole row is the click
+       target — matches the template, where the <a> measures 972px wide. -->
+  <a class="footer__cta" href={cv.footerHref}>{cv.footerCta}</a>
+</footer>

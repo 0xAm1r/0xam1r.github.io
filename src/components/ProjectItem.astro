@@ -1,0 +1,27 @@
+---
+import type { Project } from '../data/cv';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="exp">
+  <div>
+    <h3 class="exp__title">{project.title}</h3>
+    {
+      project.url && (
+        <a class="exp__company" href={project.url} target="_blank" rel="noopener noreferrer">
+          {project.urlLabel ?? project.url} <span class="arrow">↗</span>
+        </a>
+      )
+    }
+    <p class="exp__meta">{project.dates}</p>
+  </div>
+
+  <ul class="bullets">
+    {project.bullets.map((bullet) => <li>{bullet}</li>)}
+  </ul>
+</article>

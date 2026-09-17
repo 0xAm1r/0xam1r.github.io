@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Unconventional"
 date:   2025-11-14
 categories: blog

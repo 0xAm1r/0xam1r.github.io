@@ -1,0 +1,30 @@
+---
+import type { Job } from '../data/cv';
+
+interface Props {
+  job: Job;
+}
+
+const { job } = Astro.props;
+---
+
+<article class="exp">
+  <div>
+    <h3 class="exp__title">{job.title}</h3>
+    {
+      job.companyUrl ? (
+        <a class="exp__company" href={job.companyUrl} target="_blank" rel="noopener noreferrer">
+          {job.company} <span class="arrow">↗</span>
+        </a>
+      ) : (
+        <p class="exp__company">{job.company}</p>
+      )
+    }
+    <p class="exp__meta">{job.dates}</p>
+    <p class="exp__meta">{job.location}</p>
+  </div>
+
+  <ul class="bullets">
+    {job.bullets.map((bullet) => <li>{bullet}</li>)}
+  </ul>
+</article>

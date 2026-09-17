@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Loaded Man"
 date:   2025-02-11
 categories: blog

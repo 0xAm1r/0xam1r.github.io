@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import Masthead from '../../components/Masthead.astro';
+import Section from '../../components/Section.astro';
+import Footer from '../../components/Footer.astro';
+import { blog } from '../../data/blog';
+import { getPosts, postPath, formatDate, excerpt } from '../../lib/posts';
+
+const posts = await getPosts();
+---
+
+<Base title={`${blog.name} — writing`} description={blog.tagline}>
+  <div class="page">
+    <Masthead current="blog" />
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="sidebar__inner">
+          <h1 class="blog-name">{blog.name}</h1>
+          <p class="blog-tagline">{blog.tagline}</p>
+          <div class="contacts">
+            <a class="contact" href={blog.rssHref}>
+              <span class="contact__label">Subscribe via RSS</span>
+              <span class="arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <div class="content">
+        <Section label="Writing">
+          {
+            posts.map((post) => (
+              <article class="post-item">
+                <p class="post-item__date">
+                  <time datetime={post.data.date.toISOString().slice(0, 10)}>
+                    {formatDate(post.data.date)}
+                  </time>
+                </p>
+                <div>
+                  <h2 class="post-item__title">
+                    <a href={postPath(post.id)}>{post.data.title}</a>
+                  </h2>
+                  <p class="post-item__excerpt">
+                    {post.data.description ?? excerpt(post.body ?? '')}
+                  </p>
+                </div>
+              </article>
+            ))
+          }
+        </Section>
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</Base>

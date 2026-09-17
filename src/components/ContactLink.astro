@@ -1,0 +1,20 @@
+---
+import type { Contact } from '../data/cv';
+
+interface Props {
+  contact: Contact;
+}
+
+const { contact } = Astro.props;
+const isExternal = !/^(mailto:|tel:)/.test(contact.href);
+---
+
+<a
+  class="contact"
+  href={contact.href}
+  target={isExternal ? '_blank' : undefined}
+  rel={isExternal ? 'noopener noreferrer' : undefined}
+>
+  <span class="contact__label">{contact.label}</span>
+  <span class="arrow">↗</span>
+</a>

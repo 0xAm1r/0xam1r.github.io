@@ -1,0 +1,23 @@
+---
+import ContactLink from './ContactLink.astro';
+import { cv } from '../data/cv';
+
+interface Props {
+  /** Defaults to the CV summary; pages can pass their own line. */
+  blurb?: string;
+  photo?: string;
+  photoAlt?: string;
+}
+
+const { blurb = cv.summary, photo, photoAlt = '' } = Astro.props;
+---
+
+<aside class="sidebar">
+  <div class="sidebar__inner">
+    {photo && <img class="portrait" src={photo} alt={photoAlt} loading="lazy" />}
+    <p class="bio">{blurb}</p>
+    <div class="contacts">
+      {cv.contacts.map((contact) => <ContactLink contact={contact} />)}
+    </div>
+  </div>
+</aside>

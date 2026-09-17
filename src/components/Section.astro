@@ -1,0 +1,15 @@
+---
+interface Props {
+  label: string;
+  id?: string;
+  /** Promote the label to the page's <h1> where it is the main heading. */
+  as?: 'h1' | 'h2';
+}
+
+const { label, id, as: Heading = 'h2' } = Astro.props;
+---
+
+<section class="section" id={id}>
+  <Heading class="section__label">{label}</Heading>
+  <slot />
+</section>
