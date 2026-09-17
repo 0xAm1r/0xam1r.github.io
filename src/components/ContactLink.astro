@@ -9,6 +9,7 @@ const { contact } = Astro.props;
 const isExternal = !/^(mailto:|tel:)/.test(contact.href);
 ---
 
+<!--email_off-->
 <a
   class="contact"
   href={contact.href}
@@ -18,3 +19,4 @@ const isExternal = !/^(mailto:|tel:)/.test(contact.href);
   <span class="contact__label">{contact.label}</span>
   <span class="arrow">↗</span>
 </a>
+<!--/email_off-->
