@@ -20,6 +20,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
+    <!-- SVG first: it inverts with the viewer's theme. The .ico is the
+         fallback for Safari < 16.4 and the browser's automatic request. -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     <meta property="og:type" content="profile" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
