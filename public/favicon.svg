@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Inverts with the viewer's theme, the same way the site does:
-       dark chrome gets a light mark, light chrome a dark one. -->
+  <!-- "neural noise" as a signal trace. Inverts with the viewer's theme,
+       the same way the site does. -->
   <style>
     .plate { fill: #000000; }
-    .mark  { stroke: #ffffff; }
+    .trace { stroke: #ffffff; }
     @media (prefers-color-scheme: dark) {
       .plate { fill: #ffffff; }
-      .mark  { stroke: #000000; }
+      .trace { stroke: #000000; }
     }
   </style>
   <rect class="plate" width="32" height="32" rx="6" />
   <path
-    class="mark"
-    d="M8 24 L16 8 L24 24 M10.8 18.4 H21.2"
+    class="trace"
+    d="M7 19 L13 10.5 L19 21 L25 13"
     fill="none"
     stroke-width="3"
-    stroke-linecap="butt"
-    stroke-linejoin="miter"
+    stroke-linecap="round"
+    stroke-linejoin="round"
   />
 </svg>
