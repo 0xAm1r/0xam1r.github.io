@@ -10,7 +10,7 @@ import { about } from '../data/about';
 
 <Base title={`About — ${cv.name}`} description={about.blurb}>
   <div class="page">
-    <Masthead navLabel="CV" navHref="/" linkHome />
+    <Masthead current="about" />
 
     <main class="layout">
       <Sidebar blurb={about.blurb} photo={about.photo} photoAlt={about.photoAlt} />

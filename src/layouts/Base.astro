@@ -4,10 +4,12 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  /** 'article' for blog posts; 'profile' for the CV and About pages. */
+  ogType?: 'article' | 'profile';
 }
 
-const { title, description = '' } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com');
+const { title, description = '', ogType = 'profile' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://am1r.net');
 ---
 
 <!doctype html>
@@ -26,7 +28,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <meta property="og:type" content="profile" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta name="twitter:card" content="summary" />

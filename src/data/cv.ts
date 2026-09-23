@@ -29,7 +29,7 @@ export const cv = {
   contacts: [
     { label: 'Naeimii.amirhossein@gmail.com', href: 'mailto:Naeimii.amirhossein@gmail.com' },
     { label: 'github.com/0xAm1r',             href: 'https://github.com/0xAm1r' },
-    { label: 'am1r.net',                      href: '/blog' },
+    { label: 'am1r.net/blog',                 href: '/blog' },
   ] satisfies Contact[],
 
   experience: [

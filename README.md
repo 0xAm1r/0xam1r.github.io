@@ -119,7 +119,7 @@ Static files land in `dist/`.
 ## Deploy
 
 `.github/workflows/deploy.yml` builds with `withastro/action` and publishes to
-GitHub Pages on every push to `main`.
+GitHub Pages on every push to `gh-pages`.
 
 This **must** be an Actions workflow. GitHub Pages' built-in build only knows
 Jekyll and will not build an Astro site — in the repo's Pages settings, Source
